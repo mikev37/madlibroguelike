@@ -1,1 +1,1 @@
-I made a readme but it crashed so fuck it
+I made a readme but it crashed so I don't want to
