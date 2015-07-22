@@ -217,14 +217,16 @@ class Player:
         self.exp = 0
         self.maXP = self.maXP * 2
         self.level = self.level + 1
-        case = random.randint(1,3)
+        case = random.randint(1,4)
         if(case == 1):
             self.rng = self.rng + 1
         elif(case == 2):
             self.atk = self.atk + 1
-            self.maxHP = self.maxHP + 1
         elif(case == 3):
             self.speed = self.speed + 1
+        elif(case == 4):
+            self.speed = self.speed + 4    
+        self.maxHP = self.maxHP + 1
         self.hp = self.maxHP
     
     def __init__(self):
