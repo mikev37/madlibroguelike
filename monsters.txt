@@ -1,0 +1,58 @@
+Basilisk
+Bigfoot
+Black Dog
+Black Eyed Beings
+Bray Rod Beast
+Centaur
+Cerberus
+Charybdis
+Chimera
+Cockatrice
+Cyclops
+Cynocephalus
+Demon
+Doppelganger
+Dragon
+Echidna
+Elf
+Monster
+Ghost
+Golem
+Gorgon
+Griffin
+Grim Reaper
+Hydra
+Imp
+Ladon 
+Monster
+Manticore
+Medusa
+Mermaid
+Minotaur
+Mothman
+Mutants
+Nemean Lion
+Devil
+Ogre
+Orthros
+Dog
+Pegasus
+Phoenix
+Sasquatch
+Satyr
+Scylla
+Sea Monsters
+Sea-Goat
+Shade
+Shapeshifter
+Siren
+Sphinx
+Thunderbird
+Typhon
+Unicorn
+Vampire 
+Wendigo 
+Wisp 
+Werewolf 
+Wraith 
+Zombie
