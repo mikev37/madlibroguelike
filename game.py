@@ -49,6 +49,7 @@ class Weapon:
     def attack(self,mon):
         atk = self.bonus + random.randint(0,self.spread)
         self.uses = self.uses - 1
+        mon.hp = mon.hp-atk
         print( "You hit the "+mon.desc+" with your "+self.desc+" for "+str(atk)+" Damage")
 
 class Item:
