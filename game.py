@@ -260,15 +260,15 @@ def draw(world,x,y,monsters):
                 if(flag):
                     print(f(world[x+i-size/2][y+c-size/2])),
         if( i == 0):
-            print "health:",player.hp,"/",player.maxHP
+            print ("health:",player.hp,"/",player.maxHP)
         elif(i == 1):
-            print "EXP:",player.exp,"/",player.maXP
+            print ("EXP:",player.exp,"/",player.maXP)
         elif(i == 2):
-            print "STR:",player.atk
+            print ("STR:",player.atk)
         elif(i == 3):
-            print "SPD:",player.speed
+            print ("SPD:",player.speed)
         elif(i == 4):
-            print "RNG:",player.rng
+            print ("RNG:",player.rng)
         else:
             print("")
 
@@ -289,14 +289,14 @@ def fillOutLine(world):
     for i in range(0,len(world),5):
         for c in range(len(world[0])-5) :
             if(world[i][c] == 0):
-                world[i][c] = interpol(world[i][c/5*5],world[i][c/5*5+5],(c%5)/5.0)
+                world[i][c] = interpol(world[i][c/5*5],world[i][c/5*5+5],int((c%5)/5.0))
     return world
 
 def fillOut(world):
     for i in range(0,len(world)-5):
         for c in range(len(world[0])-5) :
             if(world[i][c] == 0):
-                world[i][c] = interpol(world[i/5*5][c],world[i/5*5+5][c],(i%5)/5.0)
+                world[i][c] = interpol(world[i/5*5][c],world[i/5*5+5][c],int((i%5)/5.0))
             if(i > 190 and i < 210 and c > 190 and c < 210):
                 world[i][c] = 0
     return world
