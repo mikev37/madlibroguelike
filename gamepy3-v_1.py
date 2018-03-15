@@ -47,9 +47,45 @@ class Weapon:
         mon.hp = mon.hp-atk
         print("You hit the " + mon.desc + " with your " + self.desc + " for " + str(atk) + " Damage!")
 
+class Player:
+    x = 200
+    y = 200
+    startinghp = 10
+    maxhp = 10
+    rng = 2
+    speed = 2
+    atk = 1
+    desc = ""
+    gold = 0
+    level = 1
+    exp = 0
+    maxXP = 2
+    weapon = []
 
+    def description(self):
+        desc = "You are level " + str(self.level) + " " + self.desc + "\n Carrying :"
+        for w in self.weapon:
+            desc = desc + w.description()
+        desc = desc + " and " + str(self.gold) + " Gold Dulboons!"
+        return desc
+
+    def endTurn(self):
+        if(self.exp >= self.maxXP):
+            self.levelUp()
+        for w in self.weapon:
+            if(w.uses <= 0):
+                w.breakStuff()
+                self.weapon.remove(w)
+            
+    def see(self, mon):
+        rng = self.rng
+        for w in self.weapon :
+            pass
+    
 ##TEST ARENA
+Play1 = Player()
 Weapon1 = Weapon()
 print(Weapon1.desc)
 Weapon.description(Weapon1)
 print(Weapon.description(Weapon1))
+print(Player.description(Play1))
