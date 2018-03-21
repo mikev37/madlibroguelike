@@ -200,14 +200,14 @@ class Monster:
         self.strike = self.strike + arr[random.randint(0, len(arr) -1)][0 : -1] + "s you with it's "
         f.close()
 
-        f = open('adjective.txt', 'r')
+        f = open('adjectives.txt', 'r')
         arr = []
         for line in f :
             line.strip()
             arr.append(line)
         for i in range(level):
             self.desc = self.desc + arr[random.randint(0, len(arr) -1)][0 : -1] + " "
-            self.strike = self.strike + arr[random,randint(0, len(arr) -1)][0 : -1] + " "
+            self.strike = self.strike + arr[random.randint(0, len(arr) -1)][0 : -1] + " "
         f.close
 
         f = open('monsters.txt', 'r')
@@ -223,7 +223,7 @@ class Monster:
         for line in f :
             line.strip()
             arr.append(line)
-        self.strike = self.strike + arr[random.randin(0, len(arr) -1)]#[0 : -1]
+        self.strike = self.strike + arr[random.randint(0, len(arr) -1)]#[0 : -1]
         f.close()
            
     def description(self):
@@ -244,7 +244,7 @@ def draw(world, x, y, monsters):
             else :
                 flag = True
                 for m in monsters :
-                    if(I + x - size/2 == m.x and c + y - size/2 == m.y):
+                    if(i + x - size/2 == m.x and c + y - size/2 == m.y):
                         print(mon(m.level))
                         flag = False
                 for t in treasure :
@@ -369,23 +369,20 @@ def weaponize(num):
 #GAME IN FUNCTIONS
 
 ##TEST ARENA
-Play1 = Player()
-Weapon1 = Weapon()
-print(Weapon1.desc)
-Weapon.description(Weapon1)
-print(Weapon.description(Weapon1))
-print(Player.description(Play1))
-print(Weapon.breakStuff(Weapon1))
-Item1 = Item()
-print(Item1.desc + Item.description(Item1))
-monster1 = Monster(random.randint(1,4),random.randint(0,400),random.randint(0,400))
-print(monster1.desc)
+##Play1 = Player()
+##Weapon1 = Weapon()
+##print(Weapon1.desc)
+##Weapon.description(Weapon1)
+##print(Weapon.description(Weapon1))
+##print(Player.description(Play1))
+##print(Weapon.breakStuff(Weapon1))
+##Item1 = Item()
+##print(Item1.desc + Item.description(Item1))
+##monster1 = Monster(random.randint(1,4),random.randint(0,400),random.randint(0,400))
+##print(monster1.desc)
 
 
-world = points(world)
-world = midrange(world)
-world = fillOutLine(world)
-world = fillOut(world)
-world = draw(world, 10, 10, monsters)
-print(world)
+boot()
+start(1)
+
 
