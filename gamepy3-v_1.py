@@ -281,7 +281,7 @@ def midrange(world):
     for i in range(5,len(world)-5,5):
         for c in range(5,len(world[0])-5,5) :
             if(world[i][c] == 0):
-                world[i][c] = (world[i-5][c]+world[i+5][c]+world[i][c+5]+world[i][c-5])/4+random.randint(1,6)
+                world[i][c] = (world[i-5][c] + world[i+5][c] + world[i][c+5] + world[i][c-5])/4+random.randint(1,6)
     return world
 
 def fillOutLine(world):
@@ -325,16 +325,16 @@ def mon(x):
     }.get(x, 'W')
 
 #GLOBAL VARIABLES
-mybigness = 10 #should b 401 left as 10 for testing purposed
+mybigness = 401 #should b 401 left as 10 for testing purposed
 world = [[0 for i in range(mybigness)] for i in range(mybigness)] 
 monsters = []
 treasure = []
 arsenal = []
-player = Player()
+#player = Player()
 
 #RUN FUNCTIONS (also global)
 def start(level):
-    world = [[0 for i in range(mybigness)] for i in range(mybigness)]
+    world = [[0 for i in range(mybigness)] for i in range(mybigness)] #i think i see an incomaptability here maybe 
     world = points(world)
     world = midrange(world)
     world = fillOutLine(world)
@@ -367,8 +367,25 @@ def weaponize(num):
     return arsenal
 
 #GAME IN FUNCTIONS
+def inventory():
+    print( player.description() )
+
+def look():
+    print("It's dark...")
+    for mon in monsters :
+        if(math.hypot(mon.x - player.x, mon.y - player.y) < 10):
+            print("You see a " + mon.desc)
+    for mon in treasure :
+        if(math.hypot(mon.x - player.x, mon.y - player.y) < 10):
+            print("You see a " + mon.desc)
+    for mon in arsenal :
+        if(math.hypot(mon.x - player.x, mon.y - player.y) < 10):
+            print("You see a " + mon.desc)
+
+
 
 ##TEST ARENA
+            #look() and look work in shell as does inventory()
 ##Play1 = Player()
 ##Weapon1 = Weapon()
 ##print(Weapon1.desc)
@@ -381,8 +398,13 @@ def weaponize(num):
 ##monster1 = Monster(random.randint(1,4),random.randint(0,400),random.randint(0,400))
 ##print(monster1.desc)
 
-
+world = points(world)
+world = midrange(world)
+world = fillOutLine(world)
+world = fillOut(world)
+monsters = populate(400)
+treasure = scatter(400)
+arsenal = weaponize(200)
+player = Player()
 boot()
-start(1)
-
-
+draw(world, player.x, player.y, monsters)
