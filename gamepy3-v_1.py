@@ -255,20 +255,20 @@ def draw(world, x, y, monsters):
                     if (int(i + x - size/2) == m.x and int(c + y - size/2) == t.y):
                         print('t')
                         flag = False
-                if flag == True: #original code 'if(flag):'
+                if (flag): #original code 'if(flag):'
                     print(f(world[x + i - int(size/2)][y + c - int(size/2)])) #why are there commas at the end of lines
-        if i == 0 :
-            print("Health: ",player.hp,"/",player.maxHP)
-        elif i == 1 :
-            print("EXP: ",player.exp,"/",player.maxXP)
-        elif i == 2 :
-            print("STR: ",player.atk)
-        elif i == 3 :
-            print("SPD: ",player.speed)
-        elif i == 4 :
-            print("RNG: ",player.rng)
-        else:
-            print("")
+            if i == 0 :
+                print("Health: ",player.hp,"/",player.maxHP)
+            elif i == 1 :
+                print("EXP: ",player.exp,"/",player.maxXP)
+            elif i == 2 :
+                print("STR: ",player.atk)
+            elif i == 3 :
+                print("SPD: ",player.speed)
+            elif i == 4 :
+                print("RNG: ",player.rng)
+            else:
+                print("")
      #region indented wrong in mikails? i dedented once, not sure if it works yet
 
 def points(world):
@@ -398,13 +398,14 @@ def look():
 ##monster1 = Monster(random.randint(1,4),random.randint(0,400),random.randint(0,400))
 ##print(monster1.desc)
 
+player = Player()
 world = points(world)
+draw(world, player.x, player.y, monsters)
 world = midrange(world)
 world = fillOutLine(world)
 world = fillOut(world)
 monsters = populate(400)
 treasure = scatter(400)
 arsenal = weaponize(200)
-player = Player()
-boot()
+
 draw(world, player.x, player.y, monsters)
