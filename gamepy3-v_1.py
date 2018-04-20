@@ -232,7 +232,7 @@ class Monster:
 
 #DRAW FUNCTIONS
 def draw(world, x, y, monsters):
-    size = 11
+    size = 12 #size changed from 11 to 12 and suddenly the player indicator works
     for i in range(-1, size + 2):
         for c in range(-1,  size + 2):
             if i == -1 or i == size + 1 :
@@ -240,23 +240,23 @@ def draw(world, x, y, monsters):
             elif c == -1 or c == size + 1 :
                 print('|', end = ' ')
             elif c == size / 2 and i == size / 2 :
-                print('X')
+                print('X', end = ' ')
             else :
                 flag = True
                 for m in monsters :
                     if(i + x - size/2 == m.x and c + y - size/2 == m.y):
-                        print(mon(m.level), end = ' ')
+                        print(mon(m.level), end = '')
                         flag = False
                 for t in treasure :
                     if (int(i + x - size/2) == m.x and int(c + y - size/2) == t.y):
-                        print('t', end = ' ')
+                        print('t', end = '')
                         flag = False
                 for t in arsenal :
                     if (int(i + x - size/2) == m.x and int(c + y - size/2) == t.y):
-                        print('t', end = ' ')
+                        print('t', end = '')
                         flag = False
                 if (flag): #original code 'if(flag):'
-                    print(f(world[x + i - int(size/2)][y + c - int(size/2)]), end = ' ') #why are there commas at the end of lines
+                    print(f(world[x + i - int(size/2)][y + c - int(size/2)]), end = ' ') #there are commas at the end of py2 to end print w/o a newline
         if i == 0 :
             print("Health: ",player.hp,"/",player.maxHP)
         elif i == 1 :
