@@ -236,40 +236,39 @@ def draw(world, x, y, monsters):
     for i in range(-1, size + 2):
         for c in range(-1,  size + 2):
             if i == -1 or i == size + 1 :
-                print('=')
+                print('=', end = ' ')
             elif c == -1 or c == size + 1 :
-                print('|')
+                print('|', end = ' ')
             elif c == size / 2 and i == size / 2 :
                 print('X')
             else :
                 flag = True
                 for m in monsters :
                     if(i + x - size/2 == m.x and c + y - size/2 == m.y):
-                        print(mon(m.level))
+                        print(mon(m.level), end = ' ')
                         flag = False
                 for t in treasure :
                     if (int(i + x - size/2) == m.x and int(c + y - size/2) == t.y):
-                        print('t')
+                        print('t', end = ' ')
                         flag = False
                 for t in arsenal :
                     if (int(i + x - size/2) == m.x and int(c + y - size/2) == t.y):
-                        print('t')
+                        print('t', end = ' ')
                         flag = False
                 if (flag): #original code 'if(flag):'
-                    print(f(world[x + i - int(size/2)][y + c - int(size/2)])) #why are there commas at the end of lines
-            if i == 0 :
-                print("Health: ",player.hp,"/",player.maxHP)
-            elif i == 1 :
-                print("EXP: ",player.exp,"/",player.maxXP)
-            elif i == 2 :
-                print("STR: ",player.atk)
-            elif i == 3 :
-                print("SPD: ",player.speed)
-            elif i == 4 :
-                print("RNG: ",player.rng)
-            else:
-                print("")
-     #region indented wrong in mikails? i dedented once, not sure if it works yet
+                    print(f(world[x + i - int(size/2)][y + c - int(size/2)]), end = ' ') #why are there commas at the end of lines
+        if i == 0 :
+            print("Health: ",player.hp,"/",player.maxHP)
+        elif i == 1 :
+            print("EXP: ",player.exp,"/",player.maxXP)
+        elif i == 2 :
+            print("STR: ",player.atk)
+        elif i == 3 :
+            print("SPD: ",player.speed)
+        elif i == 4 :
+            print("RNG: ",player.rng)
+        else:
+            print("")
 
 def points(world):
     for i in range(0, len(world[0]), 10):
@@ -344,9 +343,10 @@ def start(level):
     arsenal = weaponize(200)
 
 def boot():
+    global player
     player = Player()
     start(1)
-
+    
 #POPULATION FUNCTIONS
 def populate(num):
     monsters = []
@@ -382,9 +382,92 @@ def look():
         if(math.hypot(mon.x - player.x, mon.y - player.y) < 10):
             print("You see a " + mon.desc)
 
+def turn():
+    for mon in monsters :
+        mon.x = mon.x + random.randint(-mon.level, mon.level)
+        mon.y = mon.y + random.randint(-mon.level, mon.level)
+        player.see(mon)
+        if(math.hypot(mon.x - player.x, mon.y - player.y) < mon.level * 1.1):
+            print(mon.desc + " " + mon.strike)
+            player.hp = player.hp - mon.atk
 
+    for mon in treasure :
+        if math.hypot(mon.x - player.x, mon.y - player.y) < 2:
+            print(mon.description())
+            mon.effect(player)
+            treasure.remove(mon)
 
+    for mon in arsenal :
+        if (math.hypot(mon.x - player.x, mon.y - player.y) < 2):
+            print("You pick up a " + mon.desc)
+            mon.effect(player)
+            arsenal.remove(mon)
+
+def shuffle(dx, dy):
+    drx = 0
+    dry = 0
+    if (dx > 0):
+        drx = int(math.ceil(dx*1.0/10.0))
+    else:
+        drx = int(math.ceil(dx*1.0/10.0))
+    if (dy > 0):
+        dry = int(math.ceil(dy*1.0/10.0))
+    else:
+        dry = int(math.floor(dy*1.0/10.0))
+    if(drx != 0):
+        for i in range(0, dx, drx):
+            if(f(world[player.x + drx][player.y]) != 'O'):
+                player.x = player.x + drx
+    turn()
+    draw(world, player.x, player.y, monsters)
+    player.endTurn()
+
+def move():
+    flag = True
+    draw(world, player.x, player.y, monsters)
+    while (flag):
+        walk = input("Where to go (NESW) or LOOK or INV or QUIT:   ")
+
+        if(walk[0] == "W"):
+            if(len(walk) > 1):
+                dist = min(int(walk[-1]), player.speed)
+                shuffle(0, -dist)
+            else: shuffle(0, -player.speed)
+
+        elif(walk[0] == "S"):
+            if(len(walk) > 1):
+                dist = min(int(walk[-1]), player.speed)
+                shuffle(0, -dist)
+            else: shuffle(0, -player.speed)
+
+        elif(walk[0] == "E"):
+            if(len(walk) > 1):
+                dist = min(int(walk[-1]), player.speed)
+                shuffle(0, -dist)
+            else: shuffle(0, -player.speed)
+
+        elif(walk[0] == "N"):
+            if(len(walk) > 1):
+                dist = min(int(walk[-1]), player.speed)
+                shuffle(0, -dist)
+            else: shuffle(0, -player.speed)
+
+        elif(walk == "INV"):
+            inventory()
+        elif(walk == "LOOK"):
+            look()
+        elif(walk == "QUIT"):
+            flag = False
+        else:
+            print("Command not recognized")
+
+        if(player.hp <= 0):
+            print("You died. You got to level " + str(player.level) + " and had " + str(player.gold) + " Gold")
+            flag = False
+            
 ##TEST ARENA
+boot()
+move()
             #look() and look work in shell as does inventory()
 ##Play1 = Player()
 ##Weapon1 = Weapon()
@@ -397,15 +480,15 @@ def look():
 ##print(Item1.desc + Item.description(Item1))
 ##monster1 = Monster(random.randint(1,4),random.randint(0,400),random.randint(0,400))
 ##print(monster1.desc)
-
-player = Player()
-world = points(world)
-draw(world, player.x, player.y, monsters)
-world = midrange(world)
-world = fillOutLine(world)
-world = fillOut(world)
-monsters = populate(400)
-treasure = scatter(400)
-arsenal = weaponize(200)
-
-draw(world, player.x, player.y, monsters)
+## draw() works now should shortly be playable game :)
+##player = Player()
+##world = points(world)
+##draw(world, player.x, player.y, monsters)
+##world = midrange(world)
+##world = fillOutLine(world)
+##world = fillOut(world)
+##monsters = populate(400)
+##treasure = scatter(400)
+##arsenal = weaponize(200)
+##
+##draw(world, player.x, player.y, monsters)
