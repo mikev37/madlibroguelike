@@ -232,7 +232,7 @@ class Monster:
 
 #DRAW FUNCTIONS
 def draw(world, x, y, monsters):
-    size = 12 #size changed from 11 to 12 and suddenly the player indicator works
+    size = 20 #size changed from 11 to 12 and suddenly the player indicator works
     for i in range(-1, size + 2):
         for c in range(-1,  size + 2):
             if i == -1 or i == size + 1 :
@@ -245,15 +245,15 @@ def draw(world, x, y, monsters):
                 flag = True
                 for m in monsters :
                     if(i + x - size/2 == m.x and c + y - size/2 == m.y):
-                        print(mon(m.level), end = '')
+                        print(mon(m.level), end = ' ')
                         flag = False
                 for t in treasure :
                     if (int(i + x - size/2) == m.x and int(c + y - size/2) == t.y):
-                        print('t', end = '')
+                        print('t', end = ' ')
                         flag = False
                 for t in arsenal :
                     if (int(i + x - size/2) == m.x and int(c + y - size/2) == t.y):
-                        print('t', end = '')
+                        print('t', end = ' ')
                         flag = False
                 if (flag): #original code 'if(flag):'
                     print(f(world[x + i - int(size/2)][y + c - int(size/2)]), end = ' ') #there are commas at the end of py2 to end print w/o a newline
@@ -341,7 +341,8 @@ def start(level):
     monsters = populate(400)
     treasure = scatter(200)
     arsenal = weaponize(200)
-
+    return world, monsters, treasure, arsenal
+    
 def boot():
     global player
     player = Player()
@@ -351,7 +352,7 @@ def boot():
 def populate(num):
     monsters = []
     for i in range(num):
-        monsters.append(Monster(random.randint(1,4),random.randint(0,400),random.randint(0, 400)))
+        monsters.append(Monster(random.randint(1,4),random.randint(0, mybigness - 1), random.randint(0, mybigness - 1)))
     return monsters
 
 def scatter(num):
